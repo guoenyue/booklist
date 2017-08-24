@@ -1,0 +1,13 @@
+<div>
+    <my-header>
+        <div class="headerTitle" [style.background-color]="config.theme">主题换肤</div>
+    </my-header>
+    <div class="theme-box">
+        <div class="theme-group">
+            <div *ngFor="let item of themes" class="theme-item" (click)="setTheme(item)">
+                <div class="theme-content" [style.background-color]="item.color"></div>
+                <span class="theme-name">{{item.name}}</span>
+            </div>
+        </div>
+    </div>
+</div>

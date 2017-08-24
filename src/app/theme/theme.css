@@ -1,0 +1,37 @@
+.headerTitle {
+    background-color: #333;
+    color: #fff;
+    height: 44px;
+    line-height: 44px;
+    text-indent: 4em;
+}
+
+.theme-box {
+    margin-top: 44px;
+    height: 800px;
+}
+
+.theme-group {
+    display: block;
+    font-size: 0;
+}
+
+.theme-item {
+    width: 28%;
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 4%;
+    text-align: center;
+}
+
+.theme-content {
+    background-color: #69a;
+    height: 140px;
+}
+
+.theme-name {
+    display: block;
+    color: #333;
+    line-height: 26px;
+    font-size: 16px;
+}

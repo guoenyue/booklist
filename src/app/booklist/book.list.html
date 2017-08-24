@@ -1,0 +1,29 @@
+<div>
+    <my-header>
+        <div class="headerTitle" [style.background-color]="config.theme">漫画列表</div>
+    </my-header>
+    <div class="body" [ngSwitch]='true'>
+        <div class="book-group" *ngSwitchCase="booklist&&booklist.length>0">
+            <div class="book-item" *ngFor="let item of booklist;let i=index;">
+                <div class="item-wrap" (click)="goToDetail(item.id)">
+                    <div class="img-box" *ngIf="item.thumbnailList.length>0">
+                        <img [src]="item.thumbnailList[0]">
+                    </div>
+                    <div class="txt-box">
+                        <h3 class="name">书名：{{item.title}}</h3>
+                        <h4 class="author">时间：{{item.time}}</h4>
+                        <!-- <span class="desc score">打榜分数：<span class="num">{{item.score}}</span></span>
+                        <span class="desc reader">阅读量：<span class="num">{{item.reader}}</span></span> -->
+                        <div class="tag-group">
+                            类型：<span class="tag-item">恐怖漫画</span>
+                            <!-- <span class="tag-item" *ngFor="let tag of item['tags'];let idx=index;">{{tag}}</span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="default" *ngSwitchCase="!booklist||booklist&&booklist.length==0">
+            <span>好像网络有些问题，请点击重试！</span>
+        </div>
+    </div>
+</div>

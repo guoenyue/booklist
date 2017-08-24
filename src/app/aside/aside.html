@@ -1,0 +1,32 @@
+<div class="wrapper" [class.active]="config.showMenu">
+    <div class="container">
+        <span class="closeMenu-btn" (click)="closeMenu()">X</span>
+        <div class="aside">
+            <div class="header" [style.background-color]="config.theme">
+                <div class="avator">
+                    <img src="../asset/image/avator-1.png">
+                    <p class="name">_SOLID</p>
+                </div>
+            </div>
+            <div class="menu-wrapper">
+                <div class="menu-group">
+                    <div class="menu-item">
+                        <a routerLink="/list" (click)="closeMenu()"> <span class="iconfont icon-shouye"></span> 首页</a>
+                    </div>
+                    <div class="menu-item">
+                        <a routerLink="/blog" (click)="closeMenu()"><span class="iconfont icon-blog"></span> 我的博客</a>
+                    </div>
+                    <div class="menu-item">
+                        <a routerLink="/design" (click)="closeMenu()"><span class="iconfont icon-zidingyi"></span> 自定义风格</a>
+                    </div>
+                    <div class="menu-item">
+                        <a routerLink="/theme" (click)="closeMenu()"><span class="iconfont icon-pifu"></span> 主题换肤</a>
+                    </div>
+                    <div class="menu-item">
+                        <a routerLink="/about" (click)="closeMenu()"><span class="iconfont icon-iconfontguanyu"></span> 关于</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div>
+    <div class="header" [style.background-color]="config.theme"><span (click)="goBack()">返回</span></div>
+    <div class="book-detail" *ngIf="comics">
+        <h3 class="name">{{comics.title}}</h3>
+        <h4 class="time">{{comics.time}}</h4>
+        <div class="content">
+            <img *ngFor="let imgSrc of comics.imgList" [src]="imgSrc">
+        </div>
+    </div>
+</div>

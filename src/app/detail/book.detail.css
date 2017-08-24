@@ -1,0 +1,14 @@
+.header {
+    height: 44px;
+    width: 100%;
+    line-height: 44px;
+}
+
+.name {
+    color: #80a;
+}
+
+.content,
+.content img {
+    width: 100%;
+}

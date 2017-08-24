@@ -1,0 +1,14 @@
+.header {
+    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+}
