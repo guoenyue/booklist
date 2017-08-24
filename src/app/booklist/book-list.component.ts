@@ -39,7 +39,7 @@ export class BookListComponent implements OnInit{
 
 	ngOnInit(){
 		//初始化书单列表
-		if(!this.booklist)
+		if(!this.booklist||this.booklist.length==0)
 		this.getBookList(1);
 	}
 
