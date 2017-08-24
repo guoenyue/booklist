@@ -12,6 +12,7 @@ var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var api_service_1 = require("./service/api.service");
 var system_service_1 = require("./service/system.service");
+var pipe_1 = require("./pipes/pipe");
 var book_detail_component_1 = require("./detail/book-detail.component");
 var book_list_component_1 = require("./booklist/book-list.component");
 var theme_component_1 = require("./theme/theme.component");
@@ -28,7 +29,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpModule, router_1.RouterModule.forRoot(router_2.Routers)],
         providers: [api_service_1.API, system_service_1.Config],
-        declarations: [app_component_1.AppComponent, book_detail_component_1.BookDetailComponent, book_list_component_1.BookListComponent, aside_component_1.AsideMenuComponent, theme_component_1.ThemeComponent, header_component_1.HeaderComponent],
+        declarations: [app_component_1.AppComponent, book_detail_component_1.BookDetailComponent, book_list_component_1.BookListComponent, aside_component_1.AsideMenuComponent, theme_component_1.ThemeComponent, header_component_1.HeaderComponent, pipe_1.LastSubstrPipe],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -22,7 +22,7 @@ export class BookDetailComponent implements OnInit{
 	ngOnInit(){
 		let id = this.route.snapshot.paramMap.get('booklink');
 		console.log(id);
-		this.getComics(id)
+		this.getComics(id+".html");
 		// this.route.paramMap.switchMap((params: ParamMap) =>{
 		// 	//this.getComics(params.get('id'))
 		// });

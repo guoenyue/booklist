@@ -19,18 +19,22 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
 require("rxjs/add/operator/distinctUntilChanged");
+var pipe_1 = require("../pipes/pipe");
 var system_service_1 = require("../service/system.service");
 var api_service_1 = require("../service/api.service");
 var BookListComponent = (function () {
-    function BookListComponent(api, config, router, location) {
+    function BookListComponent(api, config, router, location, pipe) {
         this.api = api;
         this.config = config;
         this.router = router;
         this.location = location;
+        this.pipe = pipe;
+        this.booklist = localStorage['comicsData'] && JSON.parse(localStorage['comicsData'])['page1'] || [];
     }
     BookListComponent.prototype.ngOnInit = function () {
         //初始化书单列表
-        this.getBookList(1);
+        if (!this.booklist)
+            this.getBookList(1);
     };
     BookListComponent.prototype.getBookList = function (page) {
         // this.api.getBookList().map(data=>{
@@ -46,11 +50,16 @@ var BookListComponent = (function () {
             }
             else {
                 _this.booklist = retData.showapi_res_body.pagebean.contentlist;
+                localStorage['comicsData'] = localStorage['comicsData'] || JSON.stringify({});
+                var tmp = JSON.parse(localStorage['comicsData']);
+                tmp['page' + page] = _this.booklist;
+                localStorage['comicsData'] = JSON.stringify(tmp);
             }
         }).subscribe();
     };
     BookListComponent.prototype.goToDetail = function (link) {
-        this.router.navigate(['/detail', link]);
+        var mylink = this.pipe.transform(link, 5);
+        this.router.navigate(['/detail', mylink]);
     };
     return BookListComponent;
 }());
@@ -58,10 +67,11 @@ BookListComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: "book-list",
+        providers: [pipe_1.LastSubstrPipe],
         templateUrl: "./book.list.html",
         styleUrls: ['./book.list.css']
     }),
-    __metadata("design:paramtypes", [api_service_1.API, system_service_1.Config, router_1.Router, common_1.Location])
+    __metadata("design:paramtypes", [api_service_1.API, system_service_1.Config, router_1.Router, common_1.Location, pipe_1.LastSubstrPipe])
 ], BookListComponent);
 exports.BookListComponent = BookListComponent;
 //# sourceMappingURL=book-list.component.js.map
