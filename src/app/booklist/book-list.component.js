@@ -33,29 +33,57 @@ var BookListComponent = (function () {
     }
     BookListComponent.prototype.ngOnInit = function () {
         //初始化书单列表
-        if (!this.booklist)
+        if (!this.booklist || this.booklist.length == 0)
             this.getBookList(1);
+        // setInterval(()=>{
+        // 	this.freshBookListData();
+        // },4000);
     };
     BookListComponent.prototype.getBookList = function (page) {
-        // this.api.getBookList().map(data=>{
-        // 	this.booklist=data;
-        // })
         var _this = this;
-        //这里是填充书单列表
         this.api.log(page);
-        this.api.getComicsList(page).map(function (data) {
-            var retData = data.json();
-            if (retData && !retData.showapi_res_body.pagebean.hasMorePage) {
-                console.log("没有更多数据了");
-            }
-            else {
-                _this.booklist = retData.showapi_res_body.pagebean.contentlist;
-                localStorage['comicsData'] = localStorage['comicsData'] || JSON.stringify({});
-                var tmp = JSON.parse(localStorage['comicsData']);
-                tmp['page' + page] = _this.booklist;
-                localStorage['comicsData'] = JSON.stringify(tmp);
-            }
-        }).subscribe();
+        var bookListData;
+        if (bookListData = this.getBookListDataByPage(page)) {
+            this.setBookListData(bookListData);
+        }
+        else {
+            this.api.getComicsList(page).map(function (data) {
+                var retData = data.json();
+                if (retData && !retData.showapi_res_body.pagebean.hasMorePage) {
+                    console.log("没有更多数据了");
+                }
+                else {
+                    bookListData = retData.showapi_res_body.pagebean.contentlist;
+                    _this.saveBookListData(bookListData, page);
+                    _this.setBookListData(bookListData);
+                }
+            }).subscribe(function (data) {
+                console.log(data);
+            });
+        }
+    };
+    BookListComponent.prototype.freshBookListData = function (page) {
+        delete localStorage.comicsData;
+        this.booklist = [];
+        this.getBookList(1);
+    };
+    BookListComponent.prototype.saveBookListData = function (data, page) {
+        localStorage['comicsData'] = localStorage['comicsData'] || JSON.stringify({});
+        var tmp = JSON.parse(localStorage['comicsData']);
+        tmp['page' + page] = data;
+        localStorage['comicsData'] = JSON.stringify(tmp);
+        tmp = null;
+    };
+    BookListComponent.prototype.getBookListDataByPage = function (page) {
+        var data = localStorage['comicsData'];
+        var parseData;
+        if (data && (parseData = JSON.parse(data)) && parseData['page' + page]) {
+            return parseData['page' + page];
+        }
+        return false;
+    };
+    BookListComponent.prototype.setBookListData = function (data) {
+        this.booklist = data;
     };
     BookListComponent.prototype.goToDetail = function (link) {
         var mylink = this.pipe.transform(link, 5);

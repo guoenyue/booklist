@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var book_detail_component_1 = require("./detail/book-detail.component");
 var book_list_component_1 = require("./booklist/book-list.component");
 var theme_component_1 = require("./theme/theme.component");
+var about_component_1 = require("./about/about.component");
 exports.Routers = [
     {
         path: "list",
@@ -15,6 +16,10 @@ exports.Routers = [
     {
         path: "detail/:booklink",
         component: book_detail_component_1.BookDetailComponent
+    },
+    {
+        path: "about",
+        component: about_component_1.AboutComponent
     },
     {
         path: '',

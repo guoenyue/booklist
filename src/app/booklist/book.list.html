@@ -2,8 +2,8 @@
     <my-header>
         <div class="headerTitle" [style.background-color]="config.theme">漫画列表</div>
     </my-header>
-    <div class="body" [ngSwitch]='true'>
-        <div class="book-group" *ngSwitchCase="booklist&&booklist.length>0">
+    <div class="body" id='scrollBody' [ngSwitch]='true'>
+        <div class="book-group" *ngSwitchCase="booklist&&booklist.length>0" scroller [scrollerOptions]='23333'>
             <div class="book-item" *ngFor="let item of booklist;let i=index;">
                 <div class="item-wrap" (click)="goToDetail(item.id)">
                     <div class="img-box" *ngIf="item.thumbnailList.length>0">

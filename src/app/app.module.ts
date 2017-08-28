@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { API } from './service/api.service';
 import { Config } from './service/system.service';
 
+import { ScrollerDirective } from './directive/scroller.directive';
 
 import { LastSubstrPipe } from './pipes/pipe';
 
@@ -14,6 +15,7 @@ import { BookListComponent } from './booklist/book-list.component';
 import { ThemeComponent } from './theme/theme.component';
 import { HeaderComponent } from './header/header.component';
 import { AsideMenuComponent } from './aside/aside.component';
+import { AboutComponent } from './about/about.component';
 import { AppComponent }  from './app.component';
 
 import { Routers } from './router';
@@ -21,7 +23,7 @@ import { Routers } from './router';
 @NgModule({
   imports:      [ BrowserModule ,HttpModule,RouterModule.forRoot(Routers)],
   providers:[API,Config],
-  declarations: [ AppComponent ,BookDetailComponent,BookListComponent,AsideMenuComponent,ThemeComponent,HeaderComponent,LastSubstrPipe],
+  declarations: [ AppComponent ,BookDetailComponent,BookListComponent,AsideMenuComponent,ThemeComponent,HeaderComponent,AboutComponent,LastSubstrPipe,ScrollerDirective],
   bootstrap:    [ AppComponent ]
 })
 

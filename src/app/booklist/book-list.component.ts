@@ -39,34 +39,67 @@ export class BookListComponent implements OnInit{
 
 	ngOnInit(){
 		//初始化书单列表
-		if(!this.booklist)
+		if(!this.booklist||this.booklist.length==0)
 		this.getBookList(1);
+		// setInterval(()=>{
+		// 	this.freshBookListData();
+		// },4000);
 	}
 
 	getBookList(page:number){
-		// this.api.getBookList().map(data=>{
-		// 	this.booklist=data;
-		// })
-
-		//这里是填充书单列表
 		this.api.log(page);
-		this.api.getComicsList(page).map(data=>{
-			let retData=data.json();
-			if(retData&&!retData.showapi_res_body.pagebean.hasMorePage){
-				console.log("没有更多数据了");
-			}else{
-				this.booklist=retData.showapi_res_body.pagebean.contentlist;
-				localStorage['comicsData']=localStorage['comicsData']||JSON.stringify({});
-				let tmp=JSON.parse(localStorage['comicsData']);
-				tmp['page'+page]=this.booklist;
-				localStorage['comicsData']=JSON.stringify(tmp);
-			}
-		}).subscribe();
-		
+		let bookListData;
+		if(bookListData=this.getBookListDataByPage(page)){
+			this.setBookListData(bookListData);
+		}else{
+			this.api.getComicsList(page).map(data=>{
+				let retData=data.json();
+				if(retData&&!retData.showapi_res_body.pagebean.hasMorePage){
+					console.log("没有更多数据了");
+				}else{
+					bookListData=retData.showapi_res_body.pagebean.contentlist;
+					this.saveBookListData(bookListData,page);
+					this.setBookListData(bookListData);
+				}
+			}).subscribe(data=>{
+				console.log(data);
+			});
+		}		
 	}
 
-	goToDetail(link:any){
+	freshBookListData(page?:number){
+		delete localStorage.comicsData;
+		this.booklist=[];
+		this.getBookList(1);
+	}
+
+	saveBookListData(data:any,page:number):void{
+		localStorage['comicsData']=localStorage['comicsData']||JSON.stringify({});
+		let tmp=JSON.parse(localStorage['comicsData']);
+		tmp['page'+page]=data;
+		localStorage['comicsData']=JSON.stringify(tmp);
+		tmp=null;
+	}
+
+	getBookListDataByPage(page:any):any{
+		let data=localStorage['comicsData'];
+		let parseData;
+		if(data&&(parseData=JSON.parse(data))&&parseData['page'+page]){
+			return parseData['page'+page];
+		}
+		return false;
+	}
+
+	setBookListData(data:any):void{
+		this.booklist=data;
+	}
+
+	goToDetail(link:any):void{
 		let mylink=this.pipe.transform(link,5);
 		 this.router.navigate(['/detail',mylink])
 	}
+
+	
+
+
 }
